@@ -26,8 +26,8 @@ classdef hw05
             %:return: R: the value of the series
             
             % Write your code here.
-            m = 10;
-             R = compute_A_beta(beta, m);
+            data = 
+             ret = richardson_extrapolation(data, powers);
         end
 
 

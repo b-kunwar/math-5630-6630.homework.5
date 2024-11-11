@@ -1,0 +1,11 @@
+function f0_approx = richardson_extrapolation(a, alpha)
+
+m = length(a);
+
+A = zeros(m,m);
+A(:,1) = 1;
+
+A(i,j) = (2^(-j))^alpha
+% form A matrix 
+
+end
