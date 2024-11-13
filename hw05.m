@@ -62,8 +62,9 @@ classdef hw05
 
             m = length(shifts);
             coefs = zeros(m, 1);
-
+            h = 0.2;
             % write your code here. 
+           coefs = finite_difference_coefficients_l(shifts,h,l);
 
         end
     end

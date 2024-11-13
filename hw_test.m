@@ -19,6 +19,12 @@ hw_assert(abs ( hw05_worker.p3([-1, 0, 1]) - [-0.5, 0, 0.5]') < 1e-8);
 hw_assert(abs ( hw05_worker.p3([-2, -1, 1]) - [0, -0.5, 0.5]') < 1e-8);
 hw_assert(abs ( hw05_worker.p3([-2, -3, 6]) - [3/8, -4/9, 5/72]') < 1e-8);
 
+disp('p4')
+hw_assert(abs ( hw05_worker.p4([-1, 0, 1],1) - [-0.5, 0, 0.5]') < 1e-8);
+hw_assert(abs ( hw05_worker.p4([-2, -1, 1],1) - [0, -0.5, 0.5]') < 1e-8);
+hw_assert(abs ( hw05_worker.p4([-2, -3, 6],1) - [3/8, -4/9, 5/72]') < 1e-8);
+
+
 function hw_assert(X)
     if X; fprintf('\t PASS\n'); else; fprintf('\t FAIL\n'); end
 end
