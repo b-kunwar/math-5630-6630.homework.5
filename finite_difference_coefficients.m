@@ -41,5 +41,6 @@ function coefficients = finite_difference_coefficients(x, a, h)
 
         % Calculate c_k = h * L'_k(x)
         coefficients(k) = h * Lk_prime;
+        coefficients = coefficients(:);
     end
 end
