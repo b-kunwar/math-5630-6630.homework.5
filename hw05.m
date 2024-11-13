@@ -44,7 +44,8 @@ classdef hw05
 
             % write your code here. 
 
-            coefs = finite_difference_coefficients(shifts);
+            x = 0; h = 0.1; 
+            coefs =  finite_difference_coefficients(x, shifts, h);
 
         end
 

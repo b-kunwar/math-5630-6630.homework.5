@@ -1,37 +1,45 @@
-function c = finite_difference_coefficients(a)
-    % Compute finite difference coefficients for approximating the first derivative
+function coefficients = finite_difference_coefficients(x, a, h)
+    % finite_difference_coefficients - Compute coefficients for finite difference approximation
+    %
     % Inputs:
-    %   a : Vector of distinct numbers [a0, a1, ..., an]
-    % Output:
-    %   c : Vector of coefficients [c0, c1, ..., cn] for f'(x) ≈ (1/h) * (c0*f(x + a0*h) + ... + cn*f(x + an*h))
-    
-    n = length(a);  % Number of points
-    c = zeros(n, 1);  % Initialize coefficients vector
-    
-    % Loop over each coefficient c_k
-    for k = 1:n
-        % Initialize the sum for the derivative of Lagrange polynomial L_k'(x)
-        L_prime_k = 0;
-        
-        % Sum over all m != k
-        for m = 1:n
-            if m ~= k
-                term = 1 / (a(k) - a(m));  % Term 1 / (x_k - x_m)
-                
-                % Product over j != k and j != m
-                prod = 1;
-                for j = 1:n
-                    if j ~= k && j ~= m
-                        prod = prod * (a(k) - a(j)) / (a(k) - a(j));
-                    end
-                end
-                
-                term = term * prod;
-                L_prime_k = L_prime_k + term;
+    %   x  - The point at which we are approximating the derivative
+    %   a  - Vector of distinct coefficients [a0, a1, ..., an]
+    %   h  - Step size
+    %
+    % Outputs:
+    %   coefficients - Vector of coefficients [c0, c1, ..., cn]
+
+    n = length(a) - 1;            % Number of coefficients - 1
+    coefficients = zeros(1, n+1); % Initialize vector to store c_k
+
+    % Loop over each k to compute c_k = h * L'_k(x)
+    for k = 1:n+1
+        % Compute L'_k(x) for the current k
+        x_k = x + a(k) * h;       % x_k = x + a_k * h
+        Lk_prime = 0;             % Initialize L'_k(x)
+
+        % Loop over m != k to calculate L'_k(x)
+        for m = 1:n+1
+            if m == k
+                continue;  % Skip m = k
             end
+
+            x_m = x + a(m) * h;   % Compute x_m
+            product_term = 1;
+
+            % Compute the product term for j != k and j != m
+            for j = 1:n+1
+                if j ~= k && j ~= m
+                    x_j = x + a(j) * h;
+                    product_term = product_term * (x - x_j) / (x_k - x_j);
+                end
+            end
+
+            % Add to L'_k(x) for this m
+            Lk_prime = Lk_prime + (1 / (x_k - x_m)) * product_term;
         end
-        
-        % Store the result as coefficient c_k
-        c(k) = L_prime_k;
+
+        % Calculate c_k = h * L'_k(x)
+        coefficients(k) = h * Lk_prime;
     end
 end
